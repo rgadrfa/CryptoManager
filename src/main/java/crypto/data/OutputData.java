@@ -1,7 +1,7 @@
 package crypto.data;
 
 public class OutputData {
-    public final byte[] outputData;
+    private final byte[] outputData;
     public OutputData(byte[] outputData) {
         this.outputData = outputData;
     }

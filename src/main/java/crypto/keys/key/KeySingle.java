@@ -7,7 +7,6 @@ import javax.crypto.SecretKey;
 
 public class KeySingle implements IKey {
 
-    @Getter
     private final SecretKey key;
 
     public KeySingle(SecretKey key) {
