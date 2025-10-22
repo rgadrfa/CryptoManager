@@ -46,12 +46,12 @@ public class KeyPair implements IKeyPair {
     }
 
     @Override
-    public IPublicKey getPublicKey() {
-        return (IPublicKey) publicKey;
+    public PublicKey getPublicKey() {
+        return publicKey;
     }
 
     @Override
-    public IPrivateKey getPrivateKey() {
-        return (IPrivateKey) publicKey;
+    public PrivateKey getPrivateKey() {
+        return privateKey;
     }
 }

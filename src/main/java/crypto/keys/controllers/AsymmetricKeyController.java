@@ -1,9 +1,7 @@
 package crypto.keys.controllers;
 
 import crypto.algorithm.enums.AsymmetricTypeEncoder;
-import crypto.keys.intefaces.IKey;
-import crypto.keys.intefaces.IKeyController;
-import crypto.keys.intefaces.IKeyPair;
+import crypto.keys.intefaces.*;
 import crypto.keys.key.KeyPair;
 
 import java.security.KeyPairGenerator;

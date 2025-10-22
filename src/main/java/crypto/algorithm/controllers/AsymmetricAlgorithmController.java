@@ -13,6 +13,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.function.Function;
 
 public class AsymmetricAlgorithmController implements ICryptoAlgorithm<IKeyPair> {
 

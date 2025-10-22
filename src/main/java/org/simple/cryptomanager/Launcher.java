@@ -19,6 +19,7 @@ public class Launcher {
 
         var cryptoService = CryptoServiceFactory.createAsymmetric(AsymmetricTypeEncoder.RSA);
         var key = cryptoService.createKey();
-        var res = cryptoService.processEncrypt(new InputData("Заебал".getBytes()),key);
+        var res1 = cryptoService.processEncrypt(new InputData("Заебал".getBytes()),key);
+        var res2 = cryptoService.processDecrypt(new InputData(res1.getOutputData()),key);
     }
 }
