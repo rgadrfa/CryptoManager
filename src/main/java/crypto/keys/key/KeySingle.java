@@ -1,12 +1,13 @@
 package crypto.keys.key;
 
 import crypto.keys.intefaces.IKey;
+import crypto.keys.intefaces.IKeySingle;
 import lombok.Getter;
 
 import javax.crypto.SecretKey;
 
-public class KeySingle implements IKey {
-
+public class KeySingle implements IKeySingle {
+    @Getter
     private final SecretKey key;
 
     public KeySingle(SecretKey key) {
@@ -14,17 +15,27 @@ public class KeySingle implements IKey {
     }
 
     @Override
+    public boolean isSymmetric() {
+        return false;
+    }
+
+    @Override
+    public boolean isAsymmetric() {
+        return false;
+    }
+
+    @Override
     public String getAlgorithm() {
-        return key.getAlgorithm();
+        return "";
     }
 
     @Override
     public String getFormat() {
-        return key.getFormat();
+        return "";
     }
 
     @Override
     public byte[] getEncoded() {
-        return key.getEncoded();
+        return new byte[0];
     }
 }

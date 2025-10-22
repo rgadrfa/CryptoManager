@@ -11,6 +11,7 @@ import crypto.keys.controllers.AsymmetricKeyController;
 import crypto.keys.controllers.SymmetricKeyController;
 import crypto.keys.intefaces.IKey;
 import crypto.keys.intefaces.IKeyController;
+import crypto.keys.intefaces.IKeyPair;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -36,7 +37,9 @@ public class CryptoService {
         );
     }
 
-    public static CryptoService createAsymmetric(AsymmetricTypeEncoder algorithm) {
+    public static CryptoService createAsymmetric(AsymmetricTypeEncoder algorithm)
+            throws NoSuchAlgorithmException,
+            NoSuchPaddingException {
         return new CryptoService(
                 new AsymmetricAlgorithmController(algorithm),
                 new AsymmetricKeyController(algorithm)
@@ -44,10 +47,10 @@ public class CryptoService {
     }
 
     public IKey createKey(){
-        return keyController.create();
+        return keyController.createKey();
     }
 
-    public OutputData processEncrypt(InputData data, IKey key)
+    public OutputData processEncrypt(InputData data, IKeyPair key)
             throws IllegalBlockSizeException,
             BadPaddingException,
             InvalidKeyException {

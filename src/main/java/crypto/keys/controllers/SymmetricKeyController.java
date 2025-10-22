@@ -7,6 +7,7 @@ import crypto.keys.intefaces.IKeyController;
 import crypto.keys.key.KeySingle;
 
 import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -45,7 +46,7 @@ public class SymmetricKeyController implements IKeyController {
      * @see IKey
      */
     @Override
-    public IKey create() {
+    public IKey createKey() {
         keyGenerator.init(sizeKey);
         return new KeySingle(keyGenerator.generateKey());
     }

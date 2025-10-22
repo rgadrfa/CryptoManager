@@ -1,6 +1,7 @@
 package org.simple.cryptomanager;
 
 import crypto.CryptoService;
+import crypto.algorithm.enums.AsymmetricTypeEncoder;
 import crypto.algorithm.enums.SymmetricTypeEncoder;
 import crypto.data.InputData;
 import javafx.application.Application;
@@ -17,7 +18,9 @@ public class Launcher {
             NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         //Application.launch(HelloApplication.class, args);
 
-        var cryptoService = CryptoService.createSymmetric(SymmetricTypeEncoder.AES_256);
+        var cryptoService = CryptoService.createAsymmetric(AsymmetricTypeEncoder.RSA);
         var key = cryptoService.createKey();
+        var inputData = new InputData("Hello World".getBytes());
+        var encryptedData = cryptoService.processEncrypt(inputData, key);
     }
 }

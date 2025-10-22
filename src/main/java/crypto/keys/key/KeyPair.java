@@ -1,17 +1,33 @@
 package crypto.keys.key;
 
 import crypto.keys.intefaces.IKey;
+import crypto.keys.intefaces.IKeyPair;
+import crypto.keys.intefaces.IPrivateKey;
+import crypto.keys.intefaces.IPublicKey;
 import lombok.Getter;
 
-public class KeyPair implements IKey {
-    @Getter
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
+public class KeyPair implements IKeyPair {
+
     private final PublicKey publicKey;
-    @Getter
+
     private final PrivateKey privateKey;
 
     public KeyPair(PublicKey publicKey, PrivateKey privateKey) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
+    }
+
+    @Override
+    public boolean isSymmetric() {
+        return false;
+    }
+
+    @Override
+    public boolean isAsymmetric() {
+        return false;
     }
 
     @Override
@@ -27,5 +43,15 @@ public class KeyPair implements IKey {
     @Override
     public byte[] getEncoded() {
         return new byte[0];
+    }
+
+    @Override
+    public IPublicKey getPublicKey() {
+        return (IPublicKey) publicKey;
+    }
+
+    @Override
+    public IPrivateKey getPrivateKey() {
+        return (IPrivateKey) publicKey;
     }
 }
