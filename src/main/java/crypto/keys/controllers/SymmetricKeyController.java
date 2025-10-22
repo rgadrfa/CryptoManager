@@ -4,6 +4,7 @@ import crypto.algorithm.enums.SymmetricTypeEncoder;
 import crypto.data.OutputData;
 import crypto.keys.intefaces.IKey;
 import crypto.keys.intefaces.IKeyController;
+import crypto.keys.intefaces.IKeySingle;
 import crypto.keys.key.KeySingle;
 
 import javax.crypto.KeyGenerator;
@@ -18,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
  * @see SymmetricTypeEncoder
  * @see KeySingle
  */
-public class SymmetricKeyController implements IKeyController {
+public class SymmetricKeyController implements IKeyController<IKeySingle> {
     /**
      * Генератор ключей из стандартной библиотеки JCA
      */
@@ -46,7 +47,7 @@ public class SymmetricKeyController implements IKeyController {
      * @see IKey
      */
     @Override
-    public IKey createKey() {
+    public IKeySingle createKey() {
         keyGenerator.init(sizeKey);
         return new KeySingle(keyGenerator.generateKey());
     }

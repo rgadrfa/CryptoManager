@@ -5,16 +5,15 @@ import crypto.algorithm.interfaces.ICryptoAlgorithm;
 import crypto.data.InputData;
 import crypto.data.OutputData;
 import crypto.keys.intefaces.IKey;
+import crypto.keys.intefaces.IKeySingle;
+import crypto.keys.key.KeySingle;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.*;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 
-public class SymmetricAlgorithmController implements ICryptoAlgorithm {
+public class SymmetricAlgorithmController implements ICryptoAlgorithm<IKeySingle> {
 
     private final Cipher cipher;
 
@@ -24,22 +23,27 @@ public class SymmetricAlgorithmController implements ICryptoAlgorithm {
         this.cipher = Cipher.getInstance(algorithm.getAlgorithmName());
     }
 
-    @Override
-    public OutputData encrypt(InputData data, IKey key)
+    public OutputData decode(InputData data, IKeySingle key, int mode)
             throws InvalidKeyException,
             IllegalBlockSizeException,
             BadPaddingException {
-
-        cipher.init(Cipher.ENCRYPT_MODE, key);
+        cipher.init(mode, key.getSecretKey());
         return new OutputData(cipher.doFinal(data.getInputData()));
     }
 
     @Override
-    public OutputData decrypt(InputData data, IKey key)
+    public OutputData encrypt(InputData data, IKeySingle key)
             throws InvalidKeyException,
             IllegalBlockSizeException,
             BadPaddingException {
-        cipher.init(Cipher.DECRYPT_MODE, key);
-        return new OutputData(cipher.doFinal(data.getInputData()));
+        return decode(data,key,Cipher.ENCRYPT_MODE);
+    }
+
+    @Override
+    public OutputData decrypt(InputData data, IKeySingle key)
+            throws InvalidKeyException,
+            IllegalBlockSizeException,
+            BadPaddingException {
+        return decode(data,key,Cipher.DECRYPT_MODE);
     }
 }

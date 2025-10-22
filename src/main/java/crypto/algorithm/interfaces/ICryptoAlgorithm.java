@@ -8,8 +8,8 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import java.security.InvalidKeyException;
 
-public interface ICryptoAlgorithm {
+public interface ICryptoAlgorithm<K extends IKey> {
 
-    OutputData encrypt(InputData data, IKey key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
-    OutputData decrypt(InputData data, IKey key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
+    OutputData encrypt(InputData data, K key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
+    OutputData decrypt(InputData data, K key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 }

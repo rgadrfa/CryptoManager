@@ -7,7 +7,6 @@ import lombok.Getter;
 import javax.crypto.SecretKey;
 
 public class KeySingle implements IKeySingle {
-    @Getter
     private final SecretKey key;
 
     public KeySingle(SecretKey key) {
@@ -37,5 +36,10 @@ public class KeySingle implements IKeySingle {
     @Override
     public byte[] getEncoded() {
         return new byte[0];
+    }
+
+    @Override
+    public SecretKey getSecretKey() {
+        return key;
     }
 }

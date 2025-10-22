@@ -1,5 +1,5 @@
 package crypto.keys.intefaces;
 
-public interface IKeyController {
-    IKey createKey();
+public interface IKeyController<K> {
+    K createKey();
 }

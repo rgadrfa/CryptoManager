@@ -14,7 +14,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class AsymmetricAlgorithmController implements ICryptoAlgorithm {
+public class AsymmetricAlgorithmController implements ICryptoAlgorithm<IKeyPair> {
 
     private final Cipher cipher;
 
@@ -25,17 +25,14 @@ public class AsymmetricAlgorithmController implements ICryptoAlgorithm {
     }
 
     @Override
-    public OutputData encrypt(InputData data, IKey key)
-            throws InvalidKeyException,
-            IllegalBlockSizeException,
-            BadPaddingException {
-        var g = (IKeyPair)key;
-        cipher.init(Cipher.ENCRYPT_MODE, g.getPublicKey());
+    public OutputData encrypt(InputData data, IKeyPair key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        cipher.init(Cipher.ENCRYPT_MODE, key.getPublicKey());
         return new OutputData(cipher.doFinal(data.getInputData()));
     }
 
     @Override
-    public OutputData decrypt(InputData data, IKey key) {
-        return null;
+    public OutputData decrypt(InputData data, IKeyPair key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        cipher.init(Cipher.DECRYPT_MODE, key.getPrivateKey());
+        return new OutputData(cipher.doFinal(data.getInputData()));
     }
 }
