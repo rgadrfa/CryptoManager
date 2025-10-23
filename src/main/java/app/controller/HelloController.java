@@ -1,4 +1,4 @@
-package org.simple.cryptomanager;
+package app.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
