@@ -1,7 +1,7 @@
 package app.window.panel;
 
-import window.interfaces.IFirstMenu;
-import window.interfaces.ISecondMenu;
+import app.window.interfaces.IFirstMenu;
+import app.window.interfaces.ISecondMenu;
 
 import javax.swing.*;
 import java.awt.*;
