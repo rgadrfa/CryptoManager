@@ -144,7 +144,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.simple.cryptomanager/app.CryptoApplication</mainClass>
+                            <mainClass>org.simple.cryptomanager/app.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
