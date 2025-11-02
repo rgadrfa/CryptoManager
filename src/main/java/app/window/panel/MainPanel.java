@@ -1,4 +1,4 @@
-package window;
+package app.window.panel;
 
 import window.interfaces.IFirstMenu;
 import window.interfaces.ISecondMenu;

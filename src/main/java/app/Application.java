@@ -1,11 +1,14 @@
 package app;
 
+import app.window.panel.MainPanel;
+import app.window.WindowAppFrame;
+
 public class Application {
     public static void main(String[] args) {
-        window.WindowAppFrame appWindow = window.WindowAppFrame.getInstance();
+        WindowAppFrame appWindow = WindowAppFrame.getInstance();
         appWindow.setWindowName("Crypto Service");
         appWindow.setWindowSize(840,540);
-        appWindow.setPanel(new window.MainPanel().getPanel());
+        appWindow.setPanel(new MainPanel().getPanel());
         appWindow.showWindow();
         appWindow.build();
     }

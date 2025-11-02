@@ -1,4 +1,4 @@
-package window;
+package app.window;
 
 import window.interfaces.IConstructFrame;
 

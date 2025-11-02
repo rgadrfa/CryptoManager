@@ -1,4 +1,4 @@
-package window;
+package app.window.panel;
 
 public class SymmetricServicePanel {
 }

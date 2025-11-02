@@ -1,6 +1,6 @@
-package window;
+package app.window.panel;
 
-import main.Main;
+
 import window.interfaces.ISecondMenu;
 
 import javax.swing.*;
