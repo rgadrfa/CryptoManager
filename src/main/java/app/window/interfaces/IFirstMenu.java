@@ -1,4 +1,4 @@
-package window.interfaces;
+package app.window.interfaces;
 
 import javax.accessibility.Accessible;
 import javax.swing.*;

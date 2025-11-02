@@ -1,6 +1,6 @@
 package app.window;
 
-import window.interfaces.IConstructFrame;
+import app.window.interfaces.IConstructFrame;
 
 import javax.swing.*;
 import java.awt.*;
