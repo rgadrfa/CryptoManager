@@ -3,6 +3,8 @@ package app;
 import app.window.panel.MainPanel;
 import app.window.WindowAppFrame;
 
+import javax.swing.*;
+
 public class Application {
     public static void main(String[] args) {
         WindowAppFrame appWindow = WindowAppFrame.getInstance();

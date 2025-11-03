@@ -7,12 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel implements ISecondMenu, IFirstMenu {
-    private final JPanel MAIN_PANEL;
+    private JPanel MAIN_PANEL;
+    private JPanel centerPanel;
+
     public MainPanel(){
         MAIN_PANEL = new JPanel(new BorderLayout());
-        MAIN_PANEL.add(createNorthPanel(),BorderLayout.NORTH);
-        MAIN_PANEL.add(createCenterPanel(),BorderLayout.CENTER);
-        MAIN_PANEL.add(createSouthPanel(),BorderLayout.SOUTH);
+        MAIN_PANEL.add(createNorthPanel(), BorderLayout.NORTH);
+
+        centerPanel = createCenterPanel();
+        MAIN_PANEL.add(centerPanel, BorderLayout.CENTER);
+
+        MAIN_PANEL.add(createSouthPanel(), BorderLayout.SOUTH);
     }
 
     public static JPanel createNorthPanel(){
@@ -28,7 +33,6 @@ public class MainPanel implements ISecondMenu, IFirstMenu {
         JMenuItem menuHelpItemIssues = new JMenuItem("Сообщить об ошибке");
 
         menuMain.add(menuMainItemExit);
-
         menuHelp.add(menuHelpItemGIT);
         menuHelp.add(menuHelpItemIssues);
 
@@ -39,19 +43,15 @@ public class MainPanel implements ISecondMenu, IFirstMenu {
         return panel;
     }
 
-
-    public static JPanel createCenterPanel(){
-        return new FilePanel().getPanel();
+    public JPanel createCenterPanel(){
+        return new FilePanel(this).getPanel();
     }
-
 
     public static JPanel createSouthPanel(){
         JPanel panel = new JPanel();
         panel.setBackground(Color.LIGHT_GRAY);
-
         JLabel labelStatus = new JLabel("Строка состояния");
         panel.add(labelStatus);
-
         return panel;
     }
 
@@ -60,9 +60,12 @@ public class MainPanel implements ISecondMenu, IFirstMenu {
         return MAIN_PANEL;
     }
 
-
     @Override
-    public void setPanel(JPanel elements) {
-
+    public void setPanel(JPanel newPanel) {
+        MAIN_PANEL.remove(centerPanel); // удаляем старую центральную панель
+        centerPanel = newPanel; // сохраняем новую панель
+        MAIN_PANEL.add(centerPanel, BorderLayout.CENTER); // добавляем новую панель
+        MAIN_PANEL.revalidate(); // перераспределяем компоненты
+        MAIN_PANEL.repaint(); // перерисовываем
     }
 }
