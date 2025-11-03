@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel implements ISecondMenu, IFirstMenu {
-    private JPanel MAIN_PANEL;
+    private final JPanel MAIN_PANEL;
     private JPanel centerPanel;
 
     public MainPanel(){
