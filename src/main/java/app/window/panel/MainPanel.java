@@ -2,6 +2,8 @@ package app.window.panel;
 
 import app.window.interfaces.IFirstMenu;
 import app.window.interfaces.ISecondMenu;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,28 +11,39 @@ import java.awt.*;
 public class MainPanel implements ISecondMenu, IFirstMenu {
     private final JPanel MAIN_PANEL;
     private JPanel centerPanel;
+    @Getter
+    private JLabel labelStatus;
+    @Getter
+    private JMenuBar menuBar;
+    @Getter
+    private JMenu menuMain,menuHelp;
+    @Getter
+    private JMenuItem menuMainItemExit,menuHelpItemGIT,menuHelpItemIssues;
+    @Getter
+    private SessionSelectPanel sessionSelectPanel;
 
     public MainPanel(){
         MAIN_PANEL = new JPanel(new BorderLayout());
         MAIN_PANEL.add(createNorthPanel(), BorderLayout.NORTH);
 
-        centerPanel = createCenterPanel();
+        sessionSelectPanel = new SessionSelectPanel(this);
+        centerPanel = sessionSelectPanel.getPanel();
         MAIN_PANEL.add(centerPanel, BorderLayout.CENTER);
 
         MAIN_PANEL.add(createSouthPanel(), BorderLayout.SOUTH);
     }
 
-    public static JPanel createNorthPanel(){
+    public JPanel createNorthPanel(){
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         panel.setBackground(Color.LIGHT_GRAY);
 
-        JMenu menuMain = new JMenu("Главная");
-        JMenuItem menuMainItemExit = new JMenuItem("Выход");
+        menuMain = new JMenu("Главная");
+        menuMainItemExit = new JMenuItem("Выход");
 
-        JMenu menuHelp = new JMenu("Помощь");
-        JMenuItem menuHelpItemGIT = new JMenuItem("GitHub");
-        JMenuItem menuHelpItemIssues = new JMenuItem("Сообщить об ошибке");
+        menuHelp = new JMenu("Помощь");
+        menuHelpItemGIT = new JMenuItem("GitHub");
+        menuHelpItemIssues = new JMenuItem("Сообщить об ошибке");
 
         menuMain.add(menuMainItemExit);
         menuHelp.add(menuHelpItemGIT);
@@ -44,13 +57,14 @@ public class MainPanel implements ISecondMenu, IFirstMenu {
     }
 
     public JPanel createCenterPanel(){
-        return new FilePanel(this).getPanel();
+        return sessionSelectPanel.getPanel();
     }
 
-    public static JPanel createSouthPanel(){
+    public JPanel createSouthPanel(){
         JPanel panel = new JPanel();
         panel.setBackground(Color.LIGHT_GRAY);
-        JLabel labelStatus = new JLabel("Строка состояния");
+
+        labelStatus = new JLabel("Строка состояния");
         panel.add(labelStatus);
         return panel;
     }
