@@ -1,7 +1,9 @@
 package app.window.interfaces;
 
 
-public interface IConstructFrame extends IFirstMenu{
+import javax.swing.*;
+
+public interface IConstructFrame extends IParentPanel{
     static IConstructFrame getInstance() {
         return null;
     }

@@ -2,6 +2,6 @@ package app.window.interfaces;
 
 import javax.swing.*;
 
-public interface ISecondMenu {
+public interface IPanel {
     JPanel getPanel();
 }

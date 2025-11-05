@@ -1,22 +1,19 @@
 package app.window.panel;
 
-import app.window.interfaces.IFirstMenu;
-import app.window.interfaces.ISecondMenu;
+import app.window.interfaces.IPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class FilePathPanel implements ISecondMenu {
-    private final JPanel MAIN_PANEL;
-    private final IFirstMenu FIRST_MENU;
+public class FilePathPanel implements IPanel {
+    private final JPanel mainPanel;
     private JTextField fileTextField;
     private JButton processButton;
 
-    public FilePathPanel(IFirstMenu firstMenu){
-        FIRST_MENU = firstMenu;
-        MAIN_PANEL = new JPanel(new BorderLayout());
-        MAIN_PANEL.add(createNorthPanel(), BorderLayout.NORTH);
-        MAIN_PANEL.add(createSouthPanel(), BorderLayout.SOUTH);
+    public FilePathPanel(){
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(createNorthPanel(), BorderLayout.NORTH);
+        mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
     }
 
     public JPanel createNorthPanel() {
@@ -35,6 +32,6 @@ public class FilePathPanel implements ISecondMenu {
 
     @Override
     public JPanel getPanel() {
-        return MAIN_PANEL;
+        return mainPanel;
     }
 }

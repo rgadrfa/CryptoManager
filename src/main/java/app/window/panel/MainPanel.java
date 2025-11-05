@@ -1,85 +1,80 @@
 package app.window.panel;
 
-import app.window.interfaces.IFirstMenu;
-import app.window.interfaces.ISecondMenu;
+import app.window.interfaces.IParentPanel;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainPanel implements ISecondMenu, IFirstMenu {
-    private final JPanel MAIN_PANEL;
-    private JPanel centerPanel;
-    @Getter
-    private JLabel labelStatus;
-    @Getter
-    private JMenuBar menuBar;
-    @Getter
+@Getter
+public class MainPanel implements IParentPanel {
+    private final JPanel mainPanel;
+    private final JPanel centerPanel;
+
+    private final JLabel labelStatus;
+    private final JMenuBar menuBar;
     private JMenu menuMain,menuHelp;
-    @Getter
     private JMenuItem menuMainItemExit,menuHelpItemGIT,menuHelpItemIssues;
-    @Getter
-    private SessionSelectPanel sessionSelectPanel;
 
     public MainPanel(){
-        MAIN_PANEL = new JPanel(new BorderLayout());
-        MAIN_PANEL.add(createNorthPanel(), BorderLayout.NORTH);
+        mainPanel = new JPanel(new BorderLayout());
+        centerPanel = new JPanel(new BorderLayout());
 
-        sessionSelectPanel = new SessionSelectPanel(this);
-        centerPanel = sessionSelectPanel.getPanel();
-        MAIN_PANEL.add(centerPanel, BorderLayout.CENTER);
+        this.menuBar = createMenuBar();
+        this.labelStatus = new JLabel("Строка состояния");;
 
-        MAIN_PANEL.add(createSouthPanel(), BorderLayout.SOUTH);
+        setup();
     }
 
-    public JPanel createNorthPanel(){
+    private void setup() {
+        mainPanel.add(createNorthPanel(), BorderLayout.NORTH);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
+    }
+
+    private JPanel createNorthPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        menuBar = new JMenuBar();
         panel.setBackground(Color.LIGHT_GRAY);
+        panel.add(menuBar);
+        return panel;
+    }
 
-        menuMain = new JMenu("Главная");
+    private JMenuBar createMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuMain = new JMenu("Главная");
         menuMainItemExit = new JMenuItem("Выход");
+        menuMain.add(menuMainItemExit);
 
-        menuHelp = new JMenu("Помощь");
+        JMenu menuHelp = new JMenu("Помощь");
         menuHelpItemGIT = new JMenuItem("GitHub");
         menuHelpItemIssues = new JMenuItem("Сообщить об ошибке");
-
-        menuMain.add(menuMainItemExit);
         menuHelp.add(menuHelpItemGIT);
         menuHelp.add(menuHelpItemIssues);
 
         menuBar.add(menuMain);
         menuBar.add(menuHelp);
 
-        panel.add(menuBar);
-        return panel;
+        return menuBar;
     }
 
-    public JPanel createCenterPanel(){
-        return sessionSelectPanel.getPanel();
-    }
-
-    public JPanel createSouthPanel(){
+    private JPanel createSouthPanel() {
         JPanel panel = new JPanel();
         panel.setBackground(Color.LIGHT_GRAY);
-
-        labelStatus = new JLabel("Строка состояния");
         panel.add(labelStatus);
         return panel;
     }
 
     @Override
     public JPanel getPanel() {
-        return MAIN_PANEL;
+        return mainPanel;
     }
 
     @Override
     public void setPanel(JPanel newPanel) {
-        MAIN_PANEL.remove(centerPanel); // удаляем старую центральную панель
-        centerPanel = newPanel; // сохраняем новую панель
-        MAIN_PANEL.add(centerPanel, BorderLayout.CENTER); // добавляем новую панель
-        MAIN_PANEL.revalidate(); // перераспределяем компоненты
-        MAIN_PANEL.repaint(); // перерисовываем
+        centerPanel.removeAll();
+        centerPanel.add(newPanel);
+        centerPanel.revalidate();
+        centerPanel.repaint();
     }
 }

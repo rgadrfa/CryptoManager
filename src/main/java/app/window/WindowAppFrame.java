@@ -7,43 +7,48 @@ import java.awt.*;
 
 // - Использование паттерна синглтон
 public class WindowAppFrame implements IConstructFrame {
-    public final JFrame MAIN_FRAME;
-    private final JPanel MAIN_PANEL;
-    private static WindowAppFrame INSTANCE;
+    public final JFrame mainFrame;
+    private final JPanel mainPanel;
+    private static WindowAppFrame instance;
 
     private WindowAppFrame() {
-        MAIN_FRAME = new JFrame();
-        MAIN_FRAME.setLayout(new BorderLayout());
-        MAIN_PANEL = new JPanel(new BorderLayout());
+        mainFrame = new JFrame();
+        mainFrame.setLayout(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
     }
 
     public void build() {
-        MAIN_FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        MAIN_FRAME.setResizable(false);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setResizable(false);
     }
 
     public static WindowAppFrame getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new WindowAppFrame();
+        if (instance == null) {
+            instance = new WindowAppFrame();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void showWindow() {
-        MAIN_FRAME.setVisible(true);
+        mainFrame.setVisible(true);
     }
 
     public void setWindowSize(int width, int height) {
-        MAIN_FRAME.setBounds(new Rectangle(width, height));
+        mainFrame.setBounds(new Rectangle(width, height));
     }
 
     public void setWindowName(String windowName) {
-        MAIN_FRAME.setTitle(windowName);
+        mainFrame.setTitle(windowName);
     }
 
     @Override
     public void setPanel(JPanel mainPanel) {
-        MAIN_PANEL.add(mainPanel);
-        MAIN_FRAME.add(MAIN_PANEL);
+        this.mainPanel.add(mainPanel);
+        mainFrame.add(this.mainPanel);
+    }
+
+    @Override
+    public JPanel getPanel() {
+        return null;
     }
 }

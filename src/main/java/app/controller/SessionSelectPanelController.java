@@ -1,28 +1,21 @@
 package app.controller;
 
+import app.mediator.NavigationManager;
 import app.window.panel.FilePathPanel;
 import app.window.panel.SessionSelectPanel;
 
 public class SessionSelectPanelController {
-    private SessionSelectPanel view;
+    private final SessionSelectPanel view;
+    private final NavigationManager navigation;
     public SessionSelectPanelController(SessionSelectPanel view){
         this.view = view;
+        this.navigation = NavigationManager.getInstance();
         initController();
     }
 
     private void initController() {
-        // Обработчик для кнопки "Создать новую сессию"
-        view.getButtonNewSession().addActionListener(
-                (e) -> view.getFIRST_PANEL().setPanel(
-                        new FilePathPanel(view.getFIRST_PANEL()).getPanel()
-                )
-        );
-
-        // Обработчик для кнопки "Открыть существующую сессию"
-        view.getButtonOldSession().addActionListener(
-                (e) -> {
-                    System.out.println("Открыть существующую сессию");
-                }
+        view.getNewSessionButton().addActionListener(e ->
+                navigation.showPanel(new FilePathPanel().getPanel())
         );
     }
 
