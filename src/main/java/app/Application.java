@@ -1,22 +1,26 @@
 package app;
 
-import app.controller.FilePathPanelController;
-import app.controller.MainPanelController;
-import app.controller.SessionSelectPanelController;
-import app.mediator.NavigationManager;
-import app.window.panel.FilePathPanel;
-import app.window.panel.MainPanel;
-import app.window.WindowAppFrame;
-import app.window.panel.SessionSelectPanel;
+import controllers.FilePathPanelController;
+import controllers.MainPanelController;
+import controllers.SessionSelectPanelController;
+import controllers.mediator.NavigationManager;
+import view.panel.FilePathPanel;
+import view.panel.MainPanel;
+import view.WindowAppFrame;
+import view.panel.SessionSelectPanel;
+import lombok.Getter;
 
 public class Application {
     private MainPanelController mainPanelController;
     private SessionSelectPanelController sessionSelectPanelController;
     private FilePathPanelController filePathPanelController;
 
-    private MainPanel mainPanel;
-    private SessionSelectPanel sessionSelectPanel;
-    private FilePathPanel filePathPanel;
+    @Getter
+    private static MainPanel mainPanel;
+    @Getter
+    private static SessionSelectPanel sessionSelectPanel;
+    @Getter
+    private static FilePathPanel filePathPanel;
 
     public Application(){
         initPanels();
@@ -25,7 +29,7 @@ public class Application {
 
         NavigationManager navigation = NavigationManager.getInstance();
 
-        navigation.setMainContainer(mainPanel);
+        navigation.setParentPanel(mainPanel);
         navigation.showPanel(sessionSelectPanel.getPanel());
     }
 
