@@ -1,4 +1,4 @@
-package models.crypto.enums;
+package models.key.enums;
 
 import lombok.Getter;
 import models.crypto.enums.type.SymmetricTypeEncoder;
