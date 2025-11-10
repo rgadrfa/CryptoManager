@@ -1,6 +1,7 @@
 package models.key.controllers;
 
-import models.crypto.enums.SymmetricTypeEncoder;
+import models.crypto.enums.SymmetricKeyType;
+import models.crypto.enums.type.SymmetricTypeEncoder;
 import models.key.intefaces.IKey;
 import models.key.intefaces.IKeyController;
 import models.key.intefaces.IKeySingle;
@@ -22,9 +23,6 @@ public class SymmetricKeyController implements IKeyController<IKeySingle> {
      * Генератор ключей из стандартной библиотеки JCA
      */
     private final KeyGenerator keyGenerator;
-    /**
-     * Размер генерируемого ключа в битах
-     */
     private final int sizeKey;
 
     /**
@@ -33,9 +31,13 @@ public class SymmetricKeyController implements IKeyController<IKeySingle> {
      * @param algorithm перечисление, содержащее название алгоритма и размер ключа
      * @throws NoSuchAlgorithmException если алгоритм не поддерживается в текущей среде выполнения
      */
-    public SymmetricKeyController(SymmetricTypeEncoder algorithm) throws NoSuchAlgorithmException {
-        this.keyGenerator = KeyGenerator.getInstance(algorithm.getAlgorithmName());
-        this.sizeKey = algorithm.getKeySize();
+    public SymmetricKeyController(SymmetricKeyType algorithm)
+            throws NoSuchAlgorithmException {
+        this.keyGenerator = KeyGenerator.getInstance(algorithm
+                .getAlgorithm()
+                .getAlgorithmName()
+        );
+        this.sizeKey = algorithm.getKeySizeBits();
     }
 
     /**

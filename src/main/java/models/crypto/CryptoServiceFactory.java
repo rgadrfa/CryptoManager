@@ -2,11 +2,9 @@ package models.crypto;
 
 import models.crypto.controllers.AsymmetricAlgorithmController;
 import models.crypto.controllers.SymmetricAlgorithmController;
-import models.crypto.enums.AsymmetricTypeEncoder;
-import models.crypto.enums.SymmetricTypeEncoder;
-import models.crypto.interfaces.ICryptoController;
-import models.key.controllers.AsymmetricKeyController;
-import models.key.controllers.SymmetricKeyController;
+import models.crypto.enums.AsymmetricEncoder;
+import models.crypto.enums.SymmetricEncoder;
+import models.crypto.interfaces.IAlgorithmController;
 import models.key.intefaces.IKeyPair;
 import models.key.intefaces.IKeySingle;
 
@@ -14,21 +12,21 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.NoSuchAlgorithmException;
 
 public class CryptoServiceFactory {
-    public static CryptoService<IKeySingle, ICryptoController<IKeySingle>> createSymmetric(SymmetricTypeEncoder algorithm)
+    public static CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> createSymmetric(
+            SymmetricEncoder algorithm)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException {
-        return new CryptoService<>(
-                new SymmetricAlgorithmController(algorithm),
-                new SymmetricKeyController(algorithm)
+        return new CryptoAlgorithmService<>(
+                new SymmetricAlgorithmController(algorithm)
         );
     }
 
-    public static CryptoService<IKeyPair, ICryptoController<IKeyPair>> createAsymmetric(AsymmetricTypeEncoder algorithm)
+    public static CryptoAlgorithmService<IKeyPair, IAlgorithmController<IKeyPair>> createAsymmetric(
+            AsymmetricEncoder algorithm)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException {
-        return new CryptoService<IKeyPair, ICryptoController<IKeyPair>>(
-                new AsymmetricAlgorithmController(algorithm),
-                new AsymmetricKeyController(algorithm)
+        return new CryptoAlgorithmService<>(
+                new AsymmetricAlgorithmController(algorithm)
         );
     }
 }

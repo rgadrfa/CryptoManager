@@ -1,7 +1,7 @@
 package models.key.controllers;
 
-import models.crypto.enums.AsymmetricTypeEncoder;
 
+import models.key.enums.AsymmetricKeyType;
 import models.key.intefaces.IKeyController;
 import models.key.intefaces.IKeyPair;
 import models.key.keyType.KeyPair;
@@ -13,9 +13,12 @@ public class AsymmetricKeyController implements IKeyController<IKeyPair> {
     private final KeyPairGenerator keyGenerator;
     private final int sizeKey;
 
-    public AsymmetricKeyController(AsymmetricTypeEncoder algorithm) throws NoSuchAlgorithmException {
-        this.keyGenerator = KeyPairGenerator.getInstance(algorithm.getAlgorithmName());
-        this.sizeKey = algorithm.getKeySize();
+    public AsymmetricKeyController(AsymmetricKeyType algorithm) throws NoSuchAlgorithmException {
+        this.keyGenerator = KeyPairGenerator.getInstance(algorithm
+                .getAlgorithm()
+                .getAlgorithmName()
+        );
+        this.sizeKey = algorithm.getKeySizeBits();
     }
 
     @Override
