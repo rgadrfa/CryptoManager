@@ -1,7 +1,7 @@
 package models.key.controllers;
 
-import models.crypto.enums.SymmetricKeyType;
 import models.crypto.enums.type.SymmetricTypeEncoder;
+import models.key.enums.SymmetricKeyType;
 import models.key.intefaces.IKey;
 import models.key.intefaces.IKeyController;
 import models.key.intefaces.IKeySingle;

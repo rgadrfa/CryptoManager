@@ -1,11 +1,11 @@
 package models.key;
 
-import models.crypto.enums.SymmetricKeyType;
 import models.key.controllers.AsymmetricKeyController;
 import models.key.controllers.SymmetricKeyController;
 import models.key.controllers.util.KeyDestroyerController;
 import models.key.controllers.util.KeyStoreController;
 import models.key.enums.AsymmetricKeyType;
+import models.key.enums.SymmetricKeyType;
 import models.key.intefaces.IKeyPair;
 import models.key.intefaces.IKeySingle;
 
