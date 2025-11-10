@@ -12,7 +12,7 @@ import models.key.intefaces.IKeySingle;
 import java.security.NoSuchAlgorithmException;
 
 public class KeyServiceFactory {
-    public static KeyService<IKeySingle> createSymmetricKeyService(SymmetricKeyType keyType)
+    public static KeyService<IKeySingle> create(SymmetricKeyType keyType)
             throws NoSuchAlgorithmException {
         return new KeyService<>(
                 new SymmetricKeyController(keyType),
@@ -21,7 +21,7 @@ public class KeyServiceFactory {
         );
     }
 
-    public static KeyService<IKeyPair> createAsymmetricKeyService(AsymmetricKeyType keyType)
+    public static KeyService<IKeyPair> create(AsymmetricKeyType keyType)
             throws NoSuchAlgorithmException {
         return new KeyService<>(
                 new AsymmetricKeyController(keyType),

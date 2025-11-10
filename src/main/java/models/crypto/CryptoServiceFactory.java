@@ -12,7 +12,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.NoSuchAlgorithmException;
 
 public class CryptoServiceFactory {
-    public static CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> createSymmetric(
+    public static CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> create(
             SymmetricEncoder algorithm)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException {
@@ -21,7 +21,7 @@ public class CryptoServiceFactory {
         );
     }
 
-    public static CryptoAlgorithmService<IKeyPair, IAlgorithmController<IKeyPair>> createAsymmetric(
+    public static CryptoAlgorithmService<IKeyPair, IAlgorithmController<IKeyPair>> create(
             AsymmetricEncoder algorithm)
             throws NoSuchAlgorithmException,
             NoSuchPaddingException {

@@ -19,15 +19,9 @@ import java.security.PublicKey;
 
 public class CryptoAlgorithmService<K extends IKey, A extends IAlgorithmController<K>> {
     private final A cryptoAlgorithm;
-    @Setter
-    private KeyService<K> keyService;
 
     CryptoAlgorithmService(A cryptoAlgorithm) {
         this.cryptoAlgorithm = cryptoAlgorithm;
-    }
-
-    public K createKey(){
-        return keyService.getKeyController().createKey();
     }
 
     public OutputData processEncrypt(InputData data, K key)

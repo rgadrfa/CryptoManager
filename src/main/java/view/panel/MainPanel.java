@@ -21,7 +21,7 @@ public class MainPanel implements IParentPanel {
         centerPanel = new JPanel(new BorderLayout());
 
         this.menuBar = createMenuBar();
-        this.labelStatus = new JLabel("Строка состояния");;
+        this.labelStatus = new JLabel("");
 
         setup();
     }
