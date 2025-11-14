@@ -4,6 +4,9 @@ import controllers.FilePathPanelController;
 import controllers.MainPanelController;
 import controllers.SessionSelectPanelController;
 import controllers.mediator.NavigationManager;
+import models.crypto.CryptoServiceFactory;
+import models.file.FileService;
+import models.key.KeyServiceFactory;
 import view.panel.FilePathPanel;
 import view.panel.MainPanel;
 import view.WindowAppFrame;
@@ -21,6 +24,10 @@ public class Application {
     private static SessionSelectPanel sessionSelectPanel;
     @Getter
     private static FilePathPanel filePathPanel;
+
+    private static CryptoServiceFactory cryptoServiceFactory;
+    private static FileService fileService;
+    private static KeyServiceFactory keyServiceFactory;
 
     public Application(){
         initPanels();
@@ -46,6 +53,10 @@ public class Application {
         mainPanel = new MainPanel();
         sessionSelectPanel = new SessionSelectPanel();
         filePathPanel = new FilePathPanel();
+    }
+
+    private void initServices() {
+        //fileService = new FileService();
     }
 
     private void initControllers() {

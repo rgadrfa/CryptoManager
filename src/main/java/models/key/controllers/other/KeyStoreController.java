@@ -1,4 +1,4 @@
-package models.key.controllers.util;
+package models.key.controllers.other;
 
 import models.key.intefaces.IKey;
 import models.key.intefaces.IKeyStoreController;

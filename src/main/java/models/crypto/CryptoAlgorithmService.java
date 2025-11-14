@@ -1,13 +1,9 @@
 package models.crypto;
 
-import lombok.Getter;
-import lombok.Setter;
 import models.crypto.interfaces.IAlgorithmController;
 import models.crypto.interfaces.IAsymmetricController;
 import models.crypto.interfaces.ISymmetricController;
-import models.file.data.InputData;
-import models.file.data.OutputData;
-import models.key.KeyService;
+import models.file.data.Data;
 import models.key.intefaces.IKey;
 import models.key.intefaces.IKeySingle;
 
@@ -24,7 +20,7 @@ public class CryptoAlgorithmService<K extends IKey, A extends IAlgorithmControll
         this.cryptoAlgorithm = cryptoAlgorithm;
     }
 
-    public OutputData processEncrypt(InputData data, K key)
+    public Data processEncrypt(Data data, K key)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         if (cryptoAlgorithm instanceof ISymmetricController && key instanceof IKeySingle) {
@@ -34,7 +30,7 @@ public class CryptoAlgorithmService<K extends IKey, A extends IAlgorithmControll
         throw new UnsupportedOperationException();
     }
 
-    public OutputData processDecrypt(InputData data, K key)
+    public Data processDecrypt(Data data, K key)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         if (cryptoAlgorithm instanceof ISymmetricController && key instanceof IKeySingle) {
@@ -45,7 +41,7 @@ public class CryptoAlgorithmService<K extends IKey, A extends IAlgorithmControll
     }
 
     // Специализированные методы для асимметричного шифрования
-    public OutputData encryptWithPublicKey(InputData data, PublicKey publicKey)
+    public Data encryptWithPublicKey(Data data, PublicKey publicKey)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         if (cryptoAlgorithm instanceof IAsymmetricController) {
@@ -55,7 +51,7 @@ public class CryptoAlgorithmService<K extends IKey, A extends IAlgorithmControll
         throw new UnsupportedOperationException();
     }
 
-    public OutputData decryptWithPrivateKey(InputData data, PrivateKey privateKey)
+    public Data decryptWithPrivateKey(Data data, PrivateKey privateKey)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         if (cryptoAlgorithm instanceof IAsymmetricController) {

@@ -1,7 +1,6 @@
 package models.crypto.interfaces;
 
-import models.file.data.InputData;
-import models.file.data.OutputData;
+import models.file.data.Data;
 import models.key.intefaces.IKeyPair;
 
 import javax.crypto.BadPaddingException;
@@ -11,9 +10,9 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public interface IAsymmetricController extends IAlgorithmController<IKeyPair>{
-    OutputData encrypt(InputData data, PublicKey key)
+    Data encrypt(Data data, PublicKey key)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
 
-    OutputData decrypt(InputData data, PrivateKey key)
+    Data decrypt(Data data, PrivateKey key)
             throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
 }

@@ -1,9 +1,11 @@
 package models.key.keyType;
 
+import lombok.Getter;
 import models.key.intefaces.IKeySingle;
 
 import javax.crypto.SecretKey;
 
+@Getter
 public class KeySingle implements IKeySingle {
     private final SecretKey key;
 

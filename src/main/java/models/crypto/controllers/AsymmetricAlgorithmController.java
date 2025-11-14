@@ -1,11 +1,8 @@
 package models.crypto.controllers;
 
 import models.crypto.enums.AsymmetricEncoder;
-import models.crypto.enums.type.AsymmetricTypeEncoder;
-import models.crypto.enums.mode.AsymmetricModeEncoder;
 import models.crypto.interfaces.IAsymmetricController;
-import models.file.data.InputData;
-import models.file.data.OutputData;
+import models.file.data.Data;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -27,14 +24,14 @@ public class AsymmetricAlgorithmController implements IAsymmetricController {
     }
 
     @Override
-    public OutputData encrypt(InputData data, PublicKey key) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public Data encrypt(Data data, PublicKey key) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        return new OutputData(cipher.doFinal(data.getInputData()));
+        return new Data(cipher.doFinal(data.getInputData()));
     }
 
     @Override
-    public OutputData decrypt(InputData data, PrivateKey key) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public Data decrypt(Data data, PrivateKey key) throws IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         cipher.init(Cipher.DECRYPT_MODE, key);
-        return new OutputData(cipher.doFinal(data.getInputData()));
+        return new Data(cipher.doFinal(data.getInputData()));
     }
 }

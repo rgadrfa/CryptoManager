@@ -2,8 +2,8 @@ package models.key;
 
 import models.key.controllers.AsymmetricKeyController;
 import models.key.controllers.SymmetricKeyController;
-import models.key.controllers.util.KeyDestroyerController;
-import models.key.controllers.util.KeyStoreController;
+import models.key.controllers.other.KeyDestroyerController;
+import models.key.controllers.other.KeyStoreController;
 import models.key.enums.AsymmetricKeyType;
 import models.key.enums.SymmetricKeyType;
 import models.key.intefaces.IKeyPair;
