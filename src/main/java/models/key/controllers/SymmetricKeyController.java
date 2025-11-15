@@ -5,7 +5,7 @@ import models.key.enums.SymmetricKeyType;
 import models.key.intefaces.IKey;
 import models.key.intefaces.IKeyController;
 import models.key.intefaces.IKeySingle;
-import models.key.keyType.KeySingle;
+import models.key.key_type.KeySingle;
 
 import javax.crypto.KeyGenerator;
 import java.security.NoSuchAlgorithmException;

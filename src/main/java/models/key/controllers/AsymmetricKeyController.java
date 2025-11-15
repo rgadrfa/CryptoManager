@@ -4,7 +4,7 @@ package models.key.controllers;
 import models.key.enums.AsymmetricKeyType;
 import models.key.intefaces.IKeyController;
 import models.key.intefaces.IKeyPair;
-import models.key.keyType.KeyPair;
+import models.key.key_type.KeyPair;
 
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;

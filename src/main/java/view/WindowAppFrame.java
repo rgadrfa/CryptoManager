@@ -5,7 +5,6 @@ import view.interfaces.IConstructFrame;
 import javax.swing.*;
 import java.awt.*;
 
-// - Использование паттерна синглтон
 public class WindowAppFrame implements IConstructFrame {
     public final JFrame mainFrame;
     private final JPanel mainPanel;

@@ -1,4 +1,4 @@
-package models.key.keyType;
+package models.key.key_type;
 
 import lombok.Getter;
 import models.key.intefaces.IKeySingle;

@@ -11,17 +11,33 @@ public class MainPanel implements IParentPanel {
     private final JPanel mainPanel;
     private final JPanel centerPanel;
 
-    private final JLabel labelStatus;
-    private final JMenuBar menuBar;
+    private JLabel labelStatus;
+    private JMenuBar menuBar;
     private JMenu menuMain,menuHelp;
-    private JMenuItem menuMainItemExit,menuHelpItemGIT,menuHelpItemIssues;
+    private JMenuItem
+            menuMainItemExit,
+            menuMainItemKeyStore,
+            menuMainLoadSession,
+            menuMainItemNewSession,
+            menuHelpItemGIT,
+            menuHelpItemIssues;
+
+    private String LABEL_STATUS = "Строка состояния";
+
+    private final String MENU_MAIN = "Главная";
+    private final String MENU_HELP = "Помощь";
+
+    private final String MENU_MAIN_ITEM_EXIT = "Выход";
+    private final String MENU_MAIN_ITEM_NEW_SESSION = "Новая сессия";
+    private final String MENU_MAIN_ITEM_LOAD_SESSION = "Загрузить сессию";
+    private final String MENU_MAIN_ITEM_KEY_STORE = "Мастер ключей";
+
+    private final String MENU_HELP_ITEM_GIT = "GIT";
+    private final String MENU_HELP_ITEM_ISSUES = "Сообщить об ошибке";
 
     public MainPanel(){
         mainPanel = new JPanel(new BorderLayout());
         centerPanel = new JPanel(new BorderLayout());
-
-        this.menuBar = createMenuBar();
-        this.labelStatus = new JLabel("");
 
         setup();
     }
@@ -35,6 +51,9 @@ public class MainPanel implements IParentPanel {
     private JPanel createNorthPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBackground(Color.LIGHT_GRAY);
+
+        menuBar = createMenuBar();
+
         panel.add(menuBar);
         return panel;
     }
@@ -42,13 +61,24 @@ public class MainPanel implements IParentPanel {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuMain = new JMenu("Главная");
-        menuMainItemExit = new JMenuItem("Выход");
+        menuMain = new JMenu(MENU_MAIN);
+        menuHelp = new JMenu(MENU_HELP);
+
+        menuMainItemExit = new JMenuItem(MENU_MAIN_ITEM_EXIT);
+        menuMainItemKeyStore = new JMenuItem(MENU_MAIN_ITEM_KEY_STORE);
+        menuMainItemNewSession = new JMenuItem(MENU_MAIN_ITEM_NEW_SESSION);
+        menuMainLoadSession = new JMenuItem(MENU_MAIN_ITEM_LOAD_SESSION);
+
+        menuHelpItemGIT = new JMenuItem(MENU_HELP_ITEM_GIT);
+        menuHelpItemIssues = new JMenuItem(MENU_HELP_ITEM_ISSUES);
+
+        menuMain.add(menuMainItemKeyStore);
+        menuMain.addSeparator();
+        menuMain.add(menuMainItemNewSession);
+        menuMain.add(menuMainLoadSession);
+        menuMain.addSeparator();
         menuMain.add(menuMainItemExit);
 
-        JMenu menuHelp = new JMenu("Помощь");
-        menuHelpItemGIT = new JMenuItem("GitHub");
-        menuHelpItemIssues = new JMenuItem("Сообщить об ошибке");
         menuHelp.add(menuHelpItemGIT);
         menuHelp.add(menuHelpItemIssues);
 
@@ -59,8 +89,11 @@ public class MainPanel implements IParentPanel {
     }
 
     private JPanel createSouthPanel() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBackground(Color.LIGHT_GRAY);
+
+        labelStatus = new JLabel(LABEL_STATUS);
+
         panel.add(labelStatus);
         return panel;
     }

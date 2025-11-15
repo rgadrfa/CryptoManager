@@ -1,11 +1,8 @@
 package controllers;
 
+import app.Application;
 import controllers.mediator.NavigationManager;
-import view.panel.EncryptionServicePanel;
 import view.panel.FilePathPanel;
-
-import javax.swing.*;
-import java.io.File;
 
 public class FilePathPanelController {
     private final FilePathPanel view;
@@ -18,48 +15,39 @@ public class FilePathPanelController {
     }
 
     private void initController() {
-        view.getBrowseButton().addActionListener(e -> openFileDialog());
-        view.getProcessButton().addActionListener(e -> processFile());
-        view.getBackButton().addActionListener(e ->
-                navigation.showPanel(new EncryptionServicePanel().getPanel()));
+        view.getButtonBrowse().addActionListener(e -> openFileDialog());
+        view.getButtonProcess().addActionListener(e -> showEncryptionPanel());
+        view.getButtonBack().addActionListener(e -> showInfPanel());
     }
 
     private void openFileDialog() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Выберите файл");
+        view.openFileDialog();
 
-        int result = fileChooser.showOpenDialog(view.getPanel());
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            view.setFilePath(selectedFile.getAbsolutePath());
-            view.getProcessButton().setEnabled(true);
-        }
+        boolean hasValidFile = !view.getFilePath().trim().isEmpty();
+
+        view.getButtonProcess().setEnabled(hasValidFile);
     }
 
     private void processFile() {
         String filePath = view.getFilePath();
 
-        if (filePath == null || filePath.trim().isEmpty()) {
-            navigation.showErrorMessage("Пожалуйста, выберите файл");
-            return;
-        }
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            navigation.showErrorMessage("Файл не существует: " + filePath);
-            return;
-        }
-
-        if (!file.canRead()) {
-            navigation.showErrorMessage("Невозможно прочитать файл: " + filePath);
-            return;
-        }
-
         try {
-            // TODO: Реализовать обработку файла
-            navigation.showInfoMessage("Файл успешно обработан: " + file.getName());
+            Application.getFileService().setFirstPath(filePath);
         } catch (Exception e) {
             navigation.showErrorMessage("Ошибка при обработке файла: " + e.getMessage());
         }
+    }
+
+    private void showEncryptionPanel() {
+        processFile();
+        navigation.showPanel(
+                Application.getEncryptionServicePanel().getPanel()
+        );
+    }
+
+    private void showInfPanel() {
+        navigation.showPanel(
+                Application.getInfoPanel().getPanel()
+        );
     }
 }

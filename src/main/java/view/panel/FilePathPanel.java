@@ -4,76 +4,96 @@ import view.interfaces.IPanel;
 import lombok.Getter;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.io.File;
 
 @Getter
 public class FilePathPanel implements IPanel {
     private final JPanel mainPanel;
 
-    private JTextField fileTextField;
-    private JButton browseButton;
-    private JButton processButton;
-    private JButton backButton;
+    private JTextField textFieldFile;
+    private JButton buttonBrowse, buttonProcess, buttonBack;
+    private JLabel labelChoose, labelPath;
+    private JFileChooser fileChooser;
+
+    private final String FILE_CHOOSER_TITLE = "Выберите файл";
+
+    private final String LABEL_CHOOSE = "Выбор файла для обработки";
+    private final String LABEL_PATH = "Путь к файлу:";
+
+    private final String BUTTON_BROWSE = "Обзор...";
+    private final String BUTTON_BACK = "Назад";
+    private final String BUTTON_PROCESS = "Обработать файл";
 
     public FilePathPanel() {
-        this.mainPanel = createMainPanel();
+        mainPanel = new JPanel(new BorderLayout(10, 10));
+        mainPanel.setBorder(
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        );
+
+        setup();
     }
 
-    private JPanel createMainPanel() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        panel.add(createNorthPanel(), BorderLayout.NORTH);
-        panel.add(createCenterPanel(), BorderLayout.CENTER);
-        panel.add(createSouthPanel(), BorderLayout.SOUTH);
-
-        return panel;
+    private void setup() {
+        mainPanel.add(createNorthPanel(), BorderLayout.NORTH);
+        mainPanel.add(createCenterPanel(), BorderLayout.CENTER);
+        mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
     }
 
     private JPanel createNorthPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel titleLabel = new JLabel("Выбор файла для обработки");
-        panel.add(titleLabel);
+        labelChoose = new JLabel(LABEL_CHOOSE);
 
+        panel.add(labelChoose);
         return panel;
     }
 
     private JPanel createCenterPanel() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
-
         JPanel inputPanel = new JPanel(new BorderLayout(5, 0));
 
-        JLabel fileLabel = new JLabel("Путь к файлу:");
-        inputPanel.add(fileLabel, BorderLayout.WEST);
+        labelPath = new JLabel(LABEL_PATH);
+        textFieldFile = new JTextField();
+        buttonBrowse = new JButton(BUTTON_BROWSE);
 
-        fileTextField = new JTextField();
-        fileTextField.setPreferredSize(new Dimension(300, 25));
-        inputPanel.add(fileTextField, BorderLayout.CENTER);
+        inputPanel.add(labelPath, BorderLayout.WEST);
 
-        browseButton = new JButton("Обзор...");
-        inputPanel.add(browseButton, BorderLayout.EAST);
+        textFieldFile.setPreferredSize(new Dimension(100, 25));
+        inputPanel.add(textFieldFile, BorderLayout.CENTER);
+
+        inputPanel.add(buttonBrowse, BorderLayout.EAST);
 
         panel.add(inputPanel, BorderLayout.NORTH);
-
         return panel;
     }
 
     private JPanel createSouthPanel() {
         JPanel panel = new JPanel(new BorderLayout());
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 0));
 
-        backButton = new JButton("Назад");
-        buttonPanel.add(backButton);
+        buttonBack = new JButton(BUTTON_BACK);
 
-        processButton = new JButton("Обработать файл");
-        processButton.setEnabled(false);
-        buttonPanel.add(processButton);
+        buttonProcess = new JButton(BUTTON_PROCESS);
+        buttonProcess.setEnabled(false);
+
+        buttonPanel.add(buttonProcess);
+        buttonPanel.add(buttonBack);
 
         panel.add(buttonPanel, BorderLayout.EAST);
-
         return panel;
+    }
+
+    public void openFileDialog() {
+        fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle(FILE_CHOOSER_TITLE);
+
+        if (fileChooser.showOpenDialog(getPanel()) == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            setFilePath(selectedFile.getAbsolutePath());
+        }
     }
 
     @Override
@@ -82,12 +102,10 @@ public class FilePathPanel implements IPanel {
     }
 
     public String getFilePath() {
-        return fileTextField != null ? fileTextField.getText() : "";
+        return textFieldFile != null ? textFieldFile.getText() : "";
     }
 
     public void setFilePath(String filePath) {
-        if (fileTextField != null) {
-            fileTextField.setText(filePath);
-        }
+        textFieldFile.setText(filePath);
     }
 }
