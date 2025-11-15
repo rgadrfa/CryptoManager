@@ -4,30 +4,24 @@ import controllers.FilePathPanelController;
 import controllers.MainPanelController;
 import controllers.SessionSelectPanelController;
 import controllers.mediator.NavigationManager;
-import models.crypto.CryptoServiceFactory;
 import models.file.FileService;
-import models.key.KeyServiceFactory;
 import view.panel.FilePathPanel;
 import view.panel.MainPanel;
 import view.WindowAppFrame;
 import view.panel.SessionSelectPanel;
 import lombok.Getter;
 
+@Getter
 public class Application {
     private MainPanelController mainPanelController;
     private SessionSelectPanelController sessionSelectPanelController;
     private FilePathPanelController filePathPanelController;
 
-    @Getter
     private static MainPanel mainPanel;
-    @Getter
     private static SessionSelectPanel sessionSelectPanel;
-    @Getter
     private static FilePathPanel filePathPanel;
 
-    private static CryptoServiceFactory cryptoServiceFactory;
     private static FileService fileService;
-    private static KeyServiceFactory keyServiceFactory;
 
     public Application(){
         initPanels();
@@ -56,7 +50,7 @@ public class Application {
     }
 
     private void initServices() {
-        //fileService = new FileService();
+        fileService = new FileService();
     }
 
     private void initControllers() {

@@ -1,5 +1,6 @@
 package models.file;
 
+import lombok.SneakyThrows;
 import models.crypto.CryptoAlgorithmService;
 import models.crypto.interfaces.IAlgorithmController;
 import models.file.controllers.DataController;
@@ -14,6 +15,7 @@ import models.key.intefaces.IKeySingle;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.function.BiFunction;
 
 public class FileService {
 
@@ -36,14 +38,13 @@ public class FileService {
         pathController.setSecondPath(path);
     }
 
-
-    public void encrypt(CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> cryptoService, IKeySingle key) {
+    public <T> void process(ThrowingBiFunction<Data,T,Data> function,T key){
         try {
             String sourcePath = pathController.getFirstPath();
             String targetPath = pathController.getSecondPath();
 
             Data inputData = dataController.readData(sourcePath);
-            Data outputData = cryptoService.processEncrypt(inputData, key);
+            Data outputData = function.apply(inputData, key);
             dataController.writeData(targetPath, outputData);
 
             System.gc();
@@ -52,49 +53,37 @@ public class FileService {
         }
     }
 
+    @FunctionalInterface
+    public interface ThrowingBiFunction<T, U, R> {
+        R apply(T t, U u) throws Exception;
+    }
+
+    public void encrypt(CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> cryptoService, IKeySingle key) {
+        process(
+                cryptoService::processEncrypt,
+                key
+        );
+    }
+
     public void encrypt(CryptoAlgorithmService<IKeyPair, IAlgorithmController<IKeyPair>> cryptoService, PublicKey publicKey) {
-        try {
-            String sourcePath = pathController.getFirstPath();
-            String targetPath = pathController.getSecondPath();
-
-            Data inputData = dataController.readData(sourcePath);
-            Data outputData = cryptoService.encryptWithPublicKey(inputData, publicKey);
-            dataController.writeData(targetPath, outputData);
-
-            System.gc();
-        } catch (Exception e) {
-            throw new RuntimeException("Asymmetric encryption failed", e);
-        }
+        process(
+                cryptoService::encryptWithPublicKey,
+                publicKey
+        );
     }
 
     // Методы для дешифрования
     public void decrypt(CryptoAlgorithmService<IKeySingle, IAlgorithmController<IKeySingle>> cryptoService, IKeySingle key) {
-        try {
-            String sourcePath = pathController.getFirstPath();
-            String targetPath = pathController.getSecondPath();
-
-            Data inputData = dataController.readData(sourcePath);
-            Data outputData = cryptoService.processDecrypt(inputData, key);
-            dataController.writeData(targetPath, outputData);
-
-            System.gc();
-        } catch (Exception e) {
-            throw new RuntimeException("Decryption failed", e);
-        }
+        process(
+                cryptoService::processDecrypt,
+                key
+        );
     }
 
     public void decrypt(CryptoAlgorithmService<IKeyPair, IAlgorithmController<IKeyPair>> cryptoService, PrivateKey privateKey) {
-        try {
-            String sourcePath = pathController.getFirstPath();
-            String targetPath = pathController.getSecondPath();
-
-            Data inputData = dataController.readData(sourcePath);
-            Data outputData = cryptoService.decryptWithPrivateKey(inputData, privateKey);
-            dataController.writeData(targetPath, outputData);
-
-            System.gc();
-        } catch (Exception e) {
-            throw new RuntimeException("Asymmetric decryption failed", e);
-        }
+        process(
+                cryptoService::decryptWithPrivateKey,
+                privateKey
+        );
     }
 }
